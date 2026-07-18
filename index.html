@@ -148,6 +148,28 @@
   .card .total .lbl{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
   .card .total .val{font-family:var(--font-n);font-weight:700;font-size:1.32rem;color:#fff}
 
+  /* ── Konfigurator ───────────────────────────────────── */
+  .configbar{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;justify-content:space-between;margin-bottom:26px;padding:16px 20px;border:1px solid var(--line);border-radius:14px;background:var(--slate-2)}
+  .configbar .lead{font-size:15px;color:#d7dbda}
+  .configbar .lead b{font-family:var(--font-n);color:var(--water)}
+  .configbar .acts{display:flex;gap:10px}
+  .minibtn{font-family:var(--font-b);font-size:13.5px;cursor:pointer;padding:8px 15px;border-radius:100px;border:1px solid var(--line);background:transparent;color:var(--text);transition:border-color .2s,color .2s}
+  .minibtn:hover{border-color:var(--water);color:var(--water)}
+  .chead{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .switch{position:relative;display:inline-flex;align-items:center;gap:9px;cursor:pointer;user-select:none}
+  .switch input{position:absolute;opacity:0;width:0;height:0}
+  .track{width:44px;height:25px;border-radius:100px;background:#39424a;transition:background .25s var(--ease);flex:none;position:relative}
+  .track::after{content:"";position:absolute;top:3px;left:3px;width:19px;height:19px;border-radius:50%;background:#fff;transition:transform .25s var(--ease)}
+  .switch input:checked + .track{background:var(--water)}
+  .switch input:checked + .track::after{transform:translateX(19px)}
+  .switch input:focus-visible + .track{outline:2px solid var(--water);outline-offset:2px}
+  .switch .lbl{font-family:var(--font-n);font-size:12px;color:var(--muted);min-width:34px;text-align:left}
+  .switch input:checked ~ .lbl{color:var(--water)}
+  .card.off{opacity:.46}
+  .card.off:hover{transform:none;border-color:var(--line);box-shadow:none}
+  .card.off:hover::before{transform:scaleY(0)}
+  .card.off .total .val{text-decoration:line-through;color:var(--muted)}
+
   /* ── Investition ────────────────────────────────────── */
   .invest{background:radial-gradient(120% 130% at 80% -10%,rgba(92,189,181,.16),transparent 55%),var(--ink)}
   .invest .box{border:1px solid var(--line);border-radius:24px;padding:clamp(34px,5vw,64px);background:linear-gradient(180deg,rgba(36,43,49,.7),rgba(18,22,26,.7));text-align:center}
@@ -276,12 +298,16 @@
       <div class="sec-head reveal">
         <p class="eyebrow">Leistungsumfang</p>
         <h2>Acht Positionen, ein Ergebnis.</h2>
-        <p>Vom Rückbau bis zur letzten Staude – jede Position mit realistischer Preisspanne.</p>
+        <p>Stell dir dein Paket zusammen: Positionen an- oder abwählen – die Summe passt sich live an.</p>
+      </div>
+      <div class="configbar reveal">
+        <span class="lead"><b><span id="picked">8</span>/8</b> Positionen gewählt · Preis rechnet sich sofort neu.</span>
+        <span class="acts"><button class="minibtn" id="selAll" type="button">Alle</button><button class="minibtn" id="selNone" type="button">Keine</button></span>
       </div>
       <div class="grid">
 
         <article class="card reveal">
-          <span class="pos">Pos. 1</span>
+          <div class="chead"><span class="pos">Pos. 1</span><label class="switch"><input type="checkbox" class="toggle" data-min="3800" data-max="6900" checked><span class="track"></span><span class="lbl">dabei</span></label></div>
           <h3>Baustelle, Rückbau & Entsorgung</h3>
           <ul>
             <li><span>Baustelleneinrichtung, Zaunabschnitt</span><span class="p">600–1.200 €</span></li>
@@ -292,7 +318,7 @@
         </article>
 
         <article class="card reveal" data-d="1">
-          <span class="pos">Pos. 2</span>
+          <div class="chead"><span class="pos">Pos. 2</span><label class="switch"><input type="checkbox" class="toggle" data-min="2600" data-max="4500" checked><span class="track"></span><span class="lbl">dabei</span></label></div>
           <h3>Erd- & Unterbau</h3>
           <ul>
             <li><span>Tragschicht, Splittbett, Gefälle, Verdichtung (~64 m²)</span><span class="p">30–80 €/m²</span></li>
@@ -301,7 +327,7 @@
         </article>
 
         <article class="card reveal">
-          <span class="pos">Pos. 3</span>
+          <div class="chead"><span class="pos">Pos. 3</span><label class="switch"><input type="checkbox" class="toggle" data-min="6600" data-max="9700" checked><span class="track"></span><span class="lbl">dabei</span></label></div>
           <h3>Natursteinterrasse</h3>
           <ul>
             <li><span>Indischer Sandstein ~3 cm (~50 m²)</span><span class="p">3.000–4.000 €</span></li>
@@ -311,7 +337,7 @@
         </article>
 
         <article class="card reveal" data-d="1">
-          <span class="pos">Pos. 4</span>
+          <div class="chead"><span class="pos">Pos. 4</span><label class="switch"><input type="checkbox" class="toggle" data-min="2400" data-max="3400" checked><span class="track"></span><span class="lbl">dabei</span></label></div>
           <h3>Bangkirai-Deck (Whirlpool-Podest)</h3>
           <ul>
             <li><span>Hartholz, tragende Unterkonstruktion, Verlegung (~14 m²)</span><span class="p">2.400–3.400 €</span></li>
@@ -320,7 +346,7 @@
         </article>
 
         <article class="card reveal">
-          <span class="pos">Pos. 5</span>
+          <div class="chead"><span class="pos">Pos. 5</span><label class="switch"><input type="checkbox" class="toggle" data-min="2500" data-max="5200" checked><span class="track"></span><span class="lbl">dabei</span></label></div>
           <h3>Fundament & Anschlüsse Whirlpool</h3>
           <ul>
             <li><span>Stahlbeton-Bodenplatte + Drainage</span><span class="p">1.200–2.500 €</span></li>
@@ -331,7 +357,7 @@
         </article>
 
         <article class="card reveal" data-d="1">
-          <span class="pos">Pos. 6</span>
+          <div class="chead"><span class="pos">Pos. 6</span><label class="switch"><input type="checkbox" class="toggle" data-min="3500" data-max="8200" checked><span class="track"></span><span class="lbl">dabei</span></label></div>
           <h3>Outdoor-Küche</h3>
           <ul>
             <li><span>Gemauerter Unterbau + Arbeitsplatte (zum Klinker)</span><span class="p">1.800–3.500 €</span></li>
@@ -342,7 +368,7 @@
         </article>
 
         <article class="card reveal">
-          <span class="pos">Pos. 7</span>
+          <div class="chead"><span class="pos">Pos. 7</span><label class="switch"><input type="checkbox" class="toggle" data-min="1300" data-max="3100" checked><span class="track"></span><span class="lbl">dabei</span></label></div>
           <h3>Außendusche (Solar)</h3>
           <ul>
             <li><span>Solar-Duschsäule + Holzverkleidung + Podest</span><span class="p">900–2.200 €</span></li>
@@ -352,7 +378,7 @@
         </article>
 
         <article class="card reveal" data-d="1">
-          <span class="pos">Pos. 8</span>
+          <div class="chead"><span class="pos">Pos. 8</span><label class="switch"><input type="checkbox" class="toggle" data-min="1800" data-max="4400" checked><span class="track"></span><span class="lbl">dabei</span></label></div>
           <h3>Bepflanzung, Kies & Feinarbeiten</h3>
           <ul>
             <li><span>Kiesflächen mit Vlies + Randprofile</span><span class="p">600–1.400 €</span></li>
@@ -370,14 +396,14 @@
   <section class="sec invest" id="invest">
     <div class="wrap">
       <div class="box reveal">
-        <p class="lead">Gesamtinvestition · brutto</p>
+        <p class="lead">Deine Auswahl · brutto</p>
         <div class="big">
-          <span class="cur">ca.</span> <span class="count" data-to="25000">0</span><span class="dash">–</span><span class="count" data-to="45000">0</span> <span class="cur">€</span>
+          <span class="cur">ca.</span> <span id="sumMin">0</span><span class="dash">–</span><span id="sumMax">0</span> <span class="cur">€</span>
         </div>
-        <p class="under">Komplettausführung durch den Betrieb – ohne den Whirlpool selbst. Die Spanne kommt vor allem aus Grill-Klasse, Materialstufe und Flächenaufteilung.</p>
+        <p class="under">Summe der gewählten Positionen – ohne den Whirlpool selbst. Die Spanne kommt vor allem aus Grill-Klasse, Materialstufe und Flächenaufteilung.</p>
         <div class="mid">
-          <span class="m1">Realistische Standardausführung</span>
-          <span class="m2">33.000–35.000 €</span>
+          <span class="m1">Realistischer Mittelwert</span>
+          <span class="m2" id="sumMid">–</span>
         </div>
         <div class="chips">
           <span class="chip hot"><b>Whirlpool</b> nicht enthalten · ab ~8.000 €</span>
@@ -445,7 +471,7 @@
       <h2>Angebot annehmen & Termin sichern.</h2>
       <p>Ein Klick genügt – wir melden uns für das kostenlose Vor-Ort-Aufmaß und machen aus der Schätzung ein verbindliches Angebot.</p>
       <div class="hero-ctas">
-        <a class="btn btn-primary" href="mailto:[E-MAIL]?subject=Gartenumbau%20%E2%80%93%20Angebot%20annehmen&amp;body=Hallo%2C%20ich%20m%C3%B6chte%20das%20Angebot%20annehmen%20und%20einen%20Vor-Ort-Termin%20vereinbaren.">Angebot annehmen</a>
+        <a class="btn btn-primary" id="acceptBtn" href="mailto:[E-MAIL]">Auswahl anfragen</a>
         <a class="btn btn-ghost" href="tel:[TELEFON]">Anrufen</a>
       </div>
       <div class="contactline">
@@ -484,30 +510,82 @@
     else { const go=()=>hv.play().catch(()=>{}); go(); hv.addEventListener('canplay',go,{once:true}); }
   }
 
-  // count-up
-  function countUp(el){
-    const to = +el.dataset.to, dur = 1400, t0 = performance.now();
-    function frame(t){
-      const p = Math.min(1,(t-t0)/dur);
-      const eased = 1-Math.pow(1-p,3);
-      el.textContent = Math.round(to*eased).toLocaleString('de-DE');
-      if(p<1) requestAnimationFrame(frame);
-    }
-    requestAnimationFrame(frame);
+  // ── number tween ──
+  const fmt = n => Math.round(n).toLocaleString('de-DE');
+  function tween(from,to,cb){
+    if(reduce){ cb(to); return; }
+    const dur=560,t0=performance.now();
+    (function f(t){const p=Math.min(1,(t-t0)/dur);const e=1-Math.pow(1-p,3);cb(from+(to-from)*e);if(p<1)requestAnimationFrame(f);})(performance.now());
   }
 
-  // reveal + triggers
+  // ── Konfigurator ──
+  const RECIPIENT='[E-MAIL]';               // beim Ausfüllen der echten Adresse ersetzen
+  const toggles=[...document.querySelectorAll('.toggle')];
+  const sumMinEl=document.getElementById('sumMin');
+  const sumMaxEl=document.getElementById('sumMax');
+  const sumMidEl=document.getElementById('sumMid');
+  const pickedEl=document.getElementById('picked');
+  const acceptBtn=document.getElementById('acceptBtn');
+  let shown={min:0,max:0}, revealed=false;
+
+  function selection(){
+    let min=0,max=0,n=0,lines=[];
+    toggles.forEach(t=>{
+      const card=t.closest('.card'), on=t.checked;
+      card.classList.toggle('off',!on);
+      const lbl=t.parentElement.querySelector('.lbl'); if(lbl) lbl.textContent=on?'dabei':'raus';
+      if(on){ min+=+t.dataset.min; max+=+t.dataset.max; n++;
+        lines.push('• '+card.querySelector('h3').textContent.trim()+': '+card.querySelector('.total .val').textContent.trim());
+      }
+    });
+    return {min,max,n,lines};
+  }
+
+  function updateMailto(s){
+    const subj='Gartenumbau – mein Angebot';
+    const body = s.n
+      ? 'Hallo,\n\nich möchte folgende Positionen beauftragen:\n\n'+s.lines.join('\n')+
+        '\n\nGeschätzte Summe: '+fmt(s.min)+'–'+fmt(s.max)+' € brutto (ohne Whirlpool).'+
+        '\n\nBitte meldet euch für einen Vor-Ort-Termin.'
+      : 'Hallo, ich interessiere mich für den Gartenumbau und möchte einen Vor-Ort-Termin vereinbaren.';
+    acceptBtn.href='mailto:'+RECIPIENT+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body);
+  }
+
+  const setMin=v=>sumMinEl.textContent=fmt(v);
+  const setMax=v=>sumMaxEl.textContent=fmt(v);
+
+  function recalc(animate){
+    const s=selection();
+    pickedEl.textContent=s.n;
+    sumMidEl.textContent = s.n ? '~'+fmt(Math.round((s.min+s.max)/2/500)*500)+' €' : '–';
+    // numbers are always kept correct (independent of the reveal flourish)
+    if(animate && revealed){ tween(shown.min,s.min,setMin); tween(shown.max,s.max,setMax); }
+    else { setMin(s.min); setMax(s.max); }
+    shown={min:s.min,max:s.max};
+    updateMailto(s);
+  }
+
+  // one-time count-up flourish when the investment box first scrolls into view
+  function revealInvest(){
+    if(revealed) return; revealed=true;
+    if(reduce) return;                       // numbers already correct
+    tween(0,shown.min,setMin); tween(0,shown.max,setMax);
+  }
+
+  toggles.forEach(t=>t.addEventListener('change',()=>recalc(true)));
+  document.getElementById('selAll').addEventListener('click',()=>{toggles.forEach(t=>t.checked=true);recalc(true);});
+  document.getElementById('selNone').addEventListener('click',()=>{toggles.forEach(t=>t.checked=false);recalc(true);});
+  recalc(false);   // initial: Auswahl/Mittelwert/E-Mail; große Zahlen zählen beim Reveal hoch
+
+  // ── reveal ──
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{
       if(!e.isIntersecting) return;
-      const el = e.target;
-      el.classList.add('in');
-      if(el.id==='bar') el.classList.add('in');
-      el.querySelectorAll?.('.count').forEach(c=>{ if(!c.dataset.done){c.dataset.done=1; reduce ? c.textContent=(+c.dataset.to).toLocaleString('de-DE') : countUp(c);} });
+      const el = e.target; el.classList.add('in');
+      if(el.querySelector && el.querySelector('#sumMin')) revealInvest();
       io.unobserve(el);
     });
   },{threshold:.18});
-
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   const bar = document.getElementById('bar'); if(bar) io.observe(bar);
 </script>
